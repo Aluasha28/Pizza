@@ -51,14 +51,14 @@ public class MyApplication {
             System.out.println("4 - Add new type of pizza");
             System.out.println("5 - Exit");
             System.out.print("> Choose one of the above (Enter a number): ");	// print action menu options
-            int input = keyboard.nextInt();
+            int choice = keyboard.nextInt();
 
-            switch(input){
+            while (true){
 
             // Complete order
-                case 1:
+                if (choice==1){
                     System.out.println("Your name: ");
-                    your_name = keyboard.nextLine();
+                    String your_name = keyboard.nextLine();
                     System.out.println("Your surname: ");
                     String your_surname = keyboard.nextLine();
                     System.out.println("Phone number: ");
@@ -73,16 +73,16 @@ public class MyApplication {
                         e.printStackTrace();
                     }
                     confirmOrder(orders, discount);			// complete order
-                    break;
+                    break;}
 
             // Add another pizza order
-                case 2:
+                else if (choice==2){
                     orders[numOfOrders++] = orderPizza();	// save new order
                     previewOrder(orders);					// view order info
-                    break;
+                    break;}
 
             // Search with ID
-                case 3:
+                else if (choice==3){
                     System.out.println("Your order ID: ");
                     int searchID = keyboard.nextInt();
                     try {
@@ -94,31 +94,31 @@ public class MyApplication {
                     } catch (StringIndexOutOfBoundsException e){
                         e.printStackTrace();
                     }
-                    break;
+                    break;}
 
             // Add new your new pizza
-                case 4:
-                    System.out.println("Name:");
-                    String namecase3 = keyboard.nextLine();
+                else if (choice==4){
                     System.out.println("Price for 30 cm: ");
                     int price30case3 = keyboard.nextInt();
                     System.out.println("Price for 35 cm: ");
                     int price35case3 = keyboard.nextInt();
+                    System.out.println("Name");
+                    String name = keyboard.next();
                     try {
-                        db.addPizza(namecase3, price30case3, price35case3);
+                        db.addPizza(name, price30case3, price35case3);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-                    break;
+                    break;}
 
             // Exit
-                case 5:
+                else if (choice==5){
                 System.out.println("Good bye!");
-                System.exit(0);							// exit program
+                System.exit(0);	}						// exit program
 
-                default:
+                else
                 System.exit(0);                           // exit program
         }
 
@@ -215,7 +215,7 @@ public class MyApplication {
         for (int i = 0; i < 10; i++) {
             if (orders[i]!= null) {
                 System.out.println((i+1)+")" + orders[i]);
-                str+= Arrays.toString(new String[]{orders[i]});
+                str = str + Arrays.toString(new String[]{orders[i]});
             }
         }
         // print total cost
